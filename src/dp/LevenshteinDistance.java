@@ -1,4 +1,7 @@
 package dp;
+
+import java.util.Arrays;
+
 /*
 * In 1965, Vladimir Levenshtein defined the distance between two words as the
 minimum number of "edits" it would take to transform the misspelled word into a
@@ -11,6 +14,67 @@ needed to transform the first string into the second string.
 *
 * */
 public class LevenshteinDistance {
+    public static int getLevenshteinDistanceDP(String a,String b ){
+        final char[] achars = a.toCharArray();
+        final char[] bchars = b.toCharArray();
+        int[][] memo=new int[a.length()+1][b.length()+1];
+        for(int i=0;i<=achars.length;i++){
+            for(int j=0;j<=bchars.length;j++) {
+                if (i == 0)
+                    memo[i][j] = j;
+                if (j == 0)
+                    memo[i][j] = i;
+                if (i > 0 && j > 0) {
+                    if (achars[i-1] == bchars[j-1]) {
+                        memo[i][j] =  memo[i-1][j - 1];
+                    } else {
+                        int min = Math.min(memo[i][j - 1], memo[i - 1][j]);
+                        min = Math.min(min, memo[i - i][j - 1]);
+                        memo[i][j] = 1+min;
+                    }
+                }
+            }
+        }return memo[a.length()][b.length()];
+    }
+    public static int levenshteinDistance(String A, String B) {
+        int[][] distanceBetweenPrefixes = new int[A.length()][B.length()];
+        for (int[] row : distanceBetweenPrefixes) {
+            Arrays.fill(row, -1);
+        }
+        return computeDistanceBetweenPrefixes(A, A.length() - 1, B, B.length() - 1,
+                distanceBetweenPrefixes);
+    }
+
+    private static int computeDistanceBetweenPrefixes(
+            String A, int A_idx , String B, int B_idx ,
+            int[][] distanceBetweenPrefixes) {
+        if (A_idx < 0) {
+// A is empty so add all of B's characters.
+            return B_idx + 1;
+        } else if (B_idx < 0) {
+// B is empty so delete all of A’s characters.
+            return A_idx + 1;
+        }
+        if (distanceBetweenPrefixes[A_idx][B_idx] == -1) {
+            if (A.charAt(A_idx) == B.charAt(B_idx)){
+                distanceBetweenPrefixes[A_idx][B_idx] = computeDistanceBetweenPrefixes(
+                        A, A_idx - 1, B, B_idx - 1, distanceBetweenPrefixes);
+            } else {
+                int substituteLast = computeDistanceBetweenPrefixes(
+                        A, A_idx - 1, B, B_idx - 1, distanceBetweenPrefixes);
+                int addLast = computeDistanceBetweenPrefixes(A , A_idx , B, B_idx - 1,
+                        distanceBetweenPrefixes);
+                int deleteLast = computeDistanceBetweenPrefixes(
+                        A, A_idx - 1, B, B_idx , distanceBetweenPrefixes);
+                distanceBetweenPrefixes[A_idx][B_idx]
+                        = 1 + Math.min(substituteLast , Math.min(addLast , deleteLast));
+            }
+        }
+        return distanceBetweenPrefixes[A_idx][B_idx];
+    }
+    public static void main(String[] args) {
+        System.out.println(levenshteinDistance("aggtab","gxtxayb"));
+    }
 }
 
 /*
