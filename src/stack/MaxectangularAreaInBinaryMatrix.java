@@ -2,14 +2,16 @@ package stack;
 
 import static stack.LargestAreaUnderHistogram.getMaxAreaUnderHistogram;
 /*
+   Note: before solving this problem ,you must solve LargestAreaUnderHistogram.
    A binary matrix of length n by m is given.We have to find max rectangular area in binary matrix.
+   Let's take below example.
    0 1 1 0
    1 0 0 1
    1 1 0 1
    1 1 0 0
    This problem is same as Max rectangular area in histogram.But here we have to take 4 histogram, as each line in the matrix is a histogram.
    We will add the heights of the buildings in each layer till we come to bottom layer.,If we find a building of zero height in any row , then that complete
-   building hegiht accumulated from the prevous layer will be zero, as no build can hang in air , at least it should have foundation in that layer but not in air :).
+   building height accumulated from the previous layer will be zero, as no build can hang in air , at least it should have foundation in that layer but not in air :).
    Let's see how these histograms  look like
    for first row
           -------------
