@@ -1,1 +1,34 @@
 
+package Array;
+/*An array is called circular if we consider the first element as next of the last element. Circular arrays are used to implement queue (Refer to this and this).
+An example problem :
+Suppose n people are sitting at a circular table with names A, B, C, D, … Given a name, we need to print all n people (in order) starting from the given name.
+For example, consider 6 people A B C D E F and given name as ‘D’. People sitting in a circular manner starting from D are D E F A B C.
+*/
+
+/*
+An efficient solution is to deal with circular arrays using the same array. If a careful observation is run through the array,
+then after n-th index, the next index always starts from 0 so using the mod operator, we can easily access the elements of the circular list,
+if we use (i)%n and run the loop from i-th index to n+i-th index. and apply mod we can do the traversal in a circular array within the given
+array without using any extra space.
+**/
+public class CircularArray {
+    public static void print(char a[],
+                             int ind){
+
+        // print from ind-th index to
+        // (n+i)th index.
+        int n=a.length;
+        for (int i = ind; i < n + ind; i++)
+            System.out.print(a[(i % n)] + " ");
+    }
+
+    // driver code
+    public static void main(String argc[]){
+        char[] a = new char[]{ 'A', 'B', 'C',
+                'D', 'E', 'F' };
+        int n = 6;
+        print(a,  3);
+    }
+}
+
