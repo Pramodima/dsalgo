@@ -30,7 +30,7 @@ public class LevelOrderTraversal {
             else return rheight+1;
         }
     }
-private void levelOrderByRecurssion(){
+private void levelOrderByRecursion(){
     LevelOrderTraversal lt=new LevelOrderTraversal();
     BinaryTreeNode<Integer> root = lt.createTree();
     int height = lt.heightOfATree(root);
@@ -55,6 +55,10 @@ private void levelOrder(BinaryTreeNode root,int level){
 
         BinaryTreeNode<Integer> root = lt.createTree();
         System.out.println( "height   "+lt.heightOfATree(root));
-        lt.levelOrderByRecurssion();
+        lt.levelOrderByRecursion();
     }
 }
+/*
+* Time Complexity: O(N2), where N is the number of nodes in the skewed tree.
+Auxiliary Space: O(1) If the recursion stack is considered the space used is O(N).
+* */
