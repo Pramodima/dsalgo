@@ -1,0 +1,45 @@
+package BinaryTree;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class LevelOrderTraversalIterative {
+    private BinaryTreeNode<Integer> createTree(){
+        BinaryTreeNode<Integer> bt=new BinaryTreeNode<>(1);
+        BinaryTreeNode<Integer> l=new BinaryTreeNode<>(2);
+        BinaryTreeNode<Integer> r=new BinaryTreeNode<>(3);
+        bt.left=l;
+        bt.right=r;
+        BinaryTreeNode<Integer> ll=new BinaryTreeNode<>(4);
+        BinaryTreeNode<Integer> lr=new BinaryTreeNode<>(5);
+        l.left=ll;
+        l.right=lr;
+        BinaryTreeNode<Integer> rl=new BinaryTreeNode<>(6);
+        BinaryTreeNode<Integer> rr=new BinaryTreeNode<>(7);
+        r.left=rl;
+        r.right=rr;
+        return bt;
+    }
+    private void iterativeLevelOrder(){
+        Queue<BinaryTreeNode> queue=new LinkedList<>();
+        BinaryTreeNode<Integer> root = createTree();
+        queue.add(root);
+        while(!queue.isEmpty()) {
+            BinaryTreeNode node = queue.poll();
+                System.out.println(node.data);
+                if(node.left!=null)
+                queue.add(node.left);
+                if(node.right!=null)
+                queue.add(node.right);
+        }
+    }
+
+    public static void main(String[] args) {
+        LevelOrderTraversalIterative li=new LevelOrderTraversalIterative();
+        li.iterativeLevelOrder();
+    }
+}
+/*Time Complexity: O(N) where N is the number of nodes in the binary tree.
+Auxiliary Space: O(N) where N is the number of nodes in the binary tree.
+*/
+
