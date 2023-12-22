@@ -1,0 +1,46 @@
+package BinaryTree;
+
+public class DiameterOfABinaryTree {
+    int dimeter = 0;
+
+    private void getDimeter(BinaryTreeNode root) {
+
+        height(root);
+        System.out.println("dimeter " + dimeter);
+    }
+
+    private int height(BinaryTreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        int hl = height(root.left);
+        int hr = height(root.right);
+        if (dimeter < hl + hr) {
+            dimeter = hl + hr;
+        }
+        return Math.max(hr, hr) + 1;
+    }
+
+    private BinaryTreeNode<Integer> createTree() {
+        BinaryTreeNode<Integer> bt = new BinaryTreeNode<>(1);
+        BinaryTreeNode<Integer> l = new BinaryTreeNode<>(2);
+        BinaryTreeNode<Integer> r = new BinaryTreeNode<>(3);
+        bt.left = l;
+        bt.right = r;
+        BinaryTreeNode<Integer> ll = new BinaryTreeNode<>(4);
+        BinaryTreeNode<Integer> lr = new BinaryTreeNode<>(5);
+        l.left = ll;
+        l.right = lr;
+        BinaryTreeNode<Integer> rl = new BinaryTreeNode<>(6);
+        BinaryTreeNode<Integer> rr = new BinaryTreeNode<>(7);
+        r.left = rl;
+        r.right = rr;
+        return bt;
+    }
+
+    public static void main(String[] args) {
+        DiameterOfABinaryTree lt = new DiameterOfABinaryTree();
+        BinaryTreeNode<Integer> root = lt.createTree();
+        lt.getDimeter(root);
+    }
+}
