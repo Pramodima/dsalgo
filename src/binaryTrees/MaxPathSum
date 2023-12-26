@@ -1,0 +1,45 @@
+package BinaryTree;
+/*
+* Binary Tree Maximum Path Sum
+
+A path in a binary tree is a sequence of nodes where each pair of adjacent nodes in the sequence has an edge connecting them.
+A node can only appear in the sequence at most once. Note that the path does not need to pass through the root.
+
+The path sum of a path is the sum of the node's values in the path.
+
+Given the root of a binary tree, return the maximum path sum of any non-empty path.
+* */
+public class MaxPathSum {
+    int maxPath=0;
+    private int maxPathSum(BinaryTreeNode<Integer> node){
+        if(node==null) return 0;
+        int left = Math.max(0, maxPathSum(node.left));
+        int right =Math.max(0, maxPathSum(node.right));
+        maxPath= Math.max(maxPath,node.data+Math.max(0,left+right));
+        return node.data+Math.max(left,right);
+    }
+
+    private BinaryTreeNode<Integer> createTree() {
+        BinaryTreeNode<Integer> bt = new BinaryTreeNode<>(1);
+        BinaryTreeNode<Integer> l = new BinaryTreeNode<>(2);
+        BinaryTreeNode<Integer> r = new BinaryTreeNode<>(3);
+        bt.left = l;
+        bt.right = r;
+        BinaryTreeNode<Integer> ll = new BinaryTreeNode<>(4);
+        BinaryTreeNode<Integer> lr = new BinaryTreeNode<>(5);
+        l.left = ll;
+        l.right = lr;
+        BinaryTreeNode<Integer> rl = new BinaryTreeNode<>(6);
+        BinaryTreeNode<Integer> rr = new BinaryTreeNode<>(-7);
+        r.left = rl;
+        r.right = rr;
+        return bt;
+    }
+
+    public static void main(String[] args) {
+        MaxPathSum mp=new MaxPathSum();
+        BinaryTreeNode<Integer> root = mp.createTree();
+        mp.maxPathSum(root);
+        System.out.println("maxPathSum "+mp.maxPath);
+    }
+}
